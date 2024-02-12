@@ -42,15 +42,20 @@ class QuizGame {
 
   checkAnswer(answer) {
     const correctAnswer = this._questions[this._currentQuestion].correct_answer;
-    if (answer !== correctAnswer) {
-      return this._looseGame();
-    }
+    if (answer !== correctAnswer) return this._looseGame();
+    if (this._currentQuestion + 1 == this._questions.length)
+      return this._winGame();
 
     this.nextQuestion();
   }
 
+  _winGame() {
+    alert("Ganhou");
+  }
+
   _looseGame() {
     alert("Perdeu");
+    this.startGame();
   }
 }
 
