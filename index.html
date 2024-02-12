@@ -10,24 +10,26 @@
   <body>
     <div class="container">
       <div class="question-container">
-        <span class="question-container__question-indicator"
+        <span
+          id="question-indicator"
+          class="question-container__question-indicator"
           >Questao 1 de 10</span
         >
-        <span class="question-container__question">
+        <span id="question" class="question-container__question">
           qual a melhor linguagem de programacao?
         </span>
       </div>
       <div class="answers-container">
-        <button onclick="checkAnswer" class="answers-container__answers">
+        <button onclick="checkAnswer(this)" class="answers-container__answers">
           javascript
         </button>
-        <button onclick="checkAnswer" class="answers-container__answers">
+        <button onclick="checkAnswer(this)" class="answers-container__answers">
           java
         </button>
-        <button onclick="checkAnswer" class="answers-container__answers">
+        <button onclick="checkAnswer(this)" class="answers-container__answers">
           python
         </button>
-        <button onclick="checkAnswer" class="answers-container__answers">
+        <button onclick="checkAnswer(this)" class="answers-container__answers">
           c++
         </button>
       </div>
