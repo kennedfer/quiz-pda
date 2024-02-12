@@ -5,19 +5,36 @@ body {
   width: 100vw;
   height: 100vh;
 }
+
 .container {
   display: grid;
 
   width: 500px;
-  height: 400px;
+  height: 200px;
 
-  padding: 20px;
+  padding: 100px;
 
   background-color: rebeccapurple;
 }
 
 .question-container {
   border: 1px dashed blue;
+  display: grid;
+  place-items: center;
+
+  position: relative;
+}
+
+.question-container__question-indicator {
+  position: absolute;
+
+  left: 50%;
+  top: 0%;
+  transform: translate(-50%, -50%);
+}
+
+.question-container__question {
+  padding-top: 20px;
 }
 
 .answers-container {
