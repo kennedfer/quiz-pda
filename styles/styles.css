@@ -1,0 +1,28 @@
+body {
+  display: grid;
+  place-items: center;
+
+  width: 100vw;
+  height: 100vh;
+}
+.container {
+  display: grid;
+
+  width: 500px;
+  height: 400px;
+
+  padding: 20px;
+
+  background-color: rebeccapurple;
+}
+
+.question-container {
+  border: 1px dashed blue;
+}
+
+.answers-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  border: 1px dashed red;
+}
