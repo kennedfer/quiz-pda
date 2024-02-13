@@ -6,7 +6,7 @@ class QuizGame {
   _questionIndicatorElement;
 
   _transitionTime = 5;
-  _transitionAnimation = `${this._transitionTime}s ease 0s 1 alternate transition`;
+  _transitionAnimation = `${this._transitionTime}s ease 1 transition`;
   _transitionElement;
 
   constructor(questions) {
@@ -46,12 +46,14 @@ class QuizGame {
     this._transitionElement.style.animation = "";
     this._transitionElement.offsetWidth;
     this._transitionElement.style.animation = this._transitionAnimation;
-    alert(this._transitionElement.style.animation);
   }
 
   _nextQuestion() {
     this._showTransition();
-    this._startInQuestion(this._currentQuestion + 1);
+    setTimeout(
+      () => this._startInQuestion(this._currentQuestion + 1),
+      this._transitionTime * 500
+    );
   }
 
   checkAnswer(answer) {

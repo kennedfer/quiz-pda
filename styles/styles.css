@@ -87,8 +87,6 @@ body {
 
   left: -100%;
   color: var(--primary-color);
-
-  animation: 3s ease 0s infinite alternate transition;
 }
 
 @keyframes transition {
@@ -97,13 +95,23 @@ body {
     color: var(--primary-color);
   }
 
-  70% {
+  25% {
+    left: 0%;
+    color: var(--primary-color);
+  }
+
+  50% {
+    color: white;
+  }
+
+  75% {
     left: 0%;
     color: var(--primary-color);
   }
 
   100% {
-    color: white;
+    left: -100%;
+    color: var(--primary-color);
   }
 }
 
