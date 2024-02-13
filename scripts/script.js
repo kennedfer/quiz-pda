@@ -50,6 +50,13 @@ class QuizGame {
 
   _nextQuestion() {
     this._showTransition();
+
+    /*
+    Eu preciso que a questao mude no meio da animacao (para que o texto nao mude 'do nada')
+    por isso o timeOut eh o tempo da animcao multiplicado por 500, o timeout deve ser em ms
+    e como eu preciso de apenas metade do tempo da animacao eu ja multiplico por 500 (metade
+    de 1s em ms) para ter logo o valor especifico
+    */
     setTimeout(
       () => this._startInQuestion(this._currentQuestion + 1),
       this._transitionTime * 500
