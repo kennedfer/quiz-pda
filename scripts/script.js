@@ -5,12 +5,18 @@ class QuizGame {
   _questionElement;
   _questionIndicatorElement;
 
+  _transitionTime = 5;
+  _transitionAnimation = `${this._transitionTime}s ease 0s 1 alternate transition`;
+  _transitionElement;
+
   constructor(questions) {
     this._questions = questions;
 
     this._questionElement = document.getElementById("question");
     this._questionIndicatorElement =
       document.getElementById("question-indicator");
+
+    this._transitionElement = document.getElementById("question-transition");
   }
 
   _paintQuestion() {
@@ -36,7 +42,15 @@ class QuizGame {
     this._startInQuestion(0);
   }
 
-  nextQuestion() {
+  _showTransition() {
+    this._transitionElement.style.animation = "";
+    this._transitionElement.offsetWidth;
+    this._transitionElement.style.animation = this._transitionAnimation;
+    alert(this._transitionElement.style.animation);
+  }
+
+  _nextQuestion() {
+    this._showTransition();
     this._startInQuestion(this._currentQuestion + 1);
   }
 
@@ -46,7 +60,7 @@ class QuizGame {
     if (this._currentQuestion + 1 == this._questions.length)
       return this._winGame();
 
-    this.nextQuestion();
+    this._nextQuestion();
   }
 
   _winGame() {

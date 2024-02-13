@@ -66,6 +66,47 @@ body {
   border-radius: 5px;
 }
 
+.question-transition {
+  display: grid;
+  place-items: center;
+
+  position: absolute;
+
+  z-index: 2;
+
+  background-color: var(--primary-color);
+
+  width: 100vw;
+  height: 100vh;
+
+  font-size: larger;
+  font-weight: bolder;
+
+  text-transform: uppercase;
+  text-align: center;
+
+  left: -100%;
+  color: var(--primary-color);
+
+  animation: 3s ease 0s infinite alternate transition;
+}
+
+@keyframes transition {
+  0% {
+    left: -100%;
+    color: var(--primary-color);
+  }
+
+  70% {
+    left: 0%;
+    color: var(--primary-color);
+  }
+
+  100% {
+    color: white;
+  }
+}
+
 .answers-container__answers:hover {
   background-color: rgba(255, 255, 255, 0.5);
   cursor: pointer;
