@@ -6,8 +6,11 @@ class QuizGame {
   _questionIndicatorElement;
 
   _transitionTime = 5;
-  _transitionAnimation = `${this._transitionTime}s ease 1 transition`;
+  _transitionAnimation = `${this._transitionTime}s linear 1 transition`;
   _transitionElement;
+
+  _wrongAnswerAnimation = "0.5s linear 3 forwards wrong-answer";
+  _correctAnswerAnimation = "0.5s linear 3 forwards correct-answer";
 
   constructor(questions) {
     this._questions = questions;
@@ -29,12 +32,12 @@ class QuizGame {
     } de ${this._questions.length}`;
   }
 
-  setCurrentQuestion(value) {
+  _setCurrentQuestion(value) {
     this._currentQuestion = value;
   }
 
   _startInQuestion(currentQuestion) {
-    this.setCurrentQuestion(currentQuestion);
+    this._setCurrentQuestion(currentQuestion);
     this._paintQuestion();
   }
 
@@ -42,14 +45,27 @@ class QuizGame {
     this._startInQuestion(0);
   }
 
-  _showTransition() {
-    this._transitionElement.style.animation = "";
-    this._transitionElement.offsetWidth;
-    this._transitionElement.style.animation = this._transitionAnimation;
+  _clearElementAnimations(element) {
+    element.style.animation = "";
+    element.offsetWidth;
+  }
+
+  _playAnimation(element, animation) {
+    this._clearElementAnimations(element);
+    element.style.animation = animation;
+  }
+
+  _showQuestionTransition() {
+    this._playAnimation(this._transitionElement, this._transitionAnimation);
+    //O '+2' tem a mesma funcao que o '+1' anterior, mas, como a incrementacao
+    //do valor so ocorre mais adiante o outro '+1' eh para compensar isso
+    this._transitionElement.textContent = `Questao ${
+      this._currentQuestion + 2
+    } de ${this._questions.length}`;
   }
 
   _nextQuestion() {
-    this._showTransition();
+    this._showQuestionTransition();
 
     /*
     Eu preciso que a questao mude no meio da animacao (para que o texto nao mude 'do nada')
@@ -63,9 +79,27 @@ class QuizGame {
     );
   }
 
-  checkAnswer(answer) {
+  _playWrongAnswerAnimation(button) {
+    this._playAnimation(button, this._wrongAnswerAnimation);
+    setTimeout(() => this._clearElementAnimations(button), 2000);
+  }
+  _playCorrectAnswerAnimation(button) {
+    this._playAnimation(button, this._correctAnswerAnimation);
+    setTimeout(() => this._clearElementAnimations(button), 2000);
+  }
+
+  checkAnswer(buttonElement) {
+    const currentAnswer = buttonElement.textContent.trim();
+
     const correctAnswer = this._questions[this._currentQuestion].correct_answer;
-    if (answer !== correctAnswer) return this._looseGame();
+    if (currentAnswer !== correctAnswer) {
+      this._playWrongAnswerAnimation(buttonElement);
+      this._showQuestionTransition();
+      return this._looseGame();
+    }
+
+    this._playCorrectAnswerAnimation(buttonElement);
+
     if (this._currentQuestion + 1 == this._questions.length)
       return this._winGame();
 
@@ -114,10 +148,9 @@ function loadData() {
   return quizData;
 }
 
-function checkAnswer(event) {
+function checkAnswer(element) {
   // O html adiciona espacos ao texto,o trim os remove
-  const currentAnswer = event.textContent.trim();
-  quizGame.checkAnswer(currentAnswer);
+  quizGame.checkAnswer(element);
 }
 
 const quizData = loadData();

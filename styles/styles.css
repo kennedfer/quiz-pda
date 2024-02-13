@@ -89,6 +89,68 @@ body {
   color: var(--primary-color);
 }
 
+.answers-container__answers:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+}
+
+.answers-container__answers:active {
+  scale: 0.95;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+@keyframes wrong-answer {
+  0% {
+    rotate: -1deg;
+  }
+
+  25% {
+    rotate: 2deg;
+  }
+
+  50% {
+    rotate: -1deg;
+    background-color: red;
+    color: white;
+  }
+
+  75% {
+    rotate: 1deg;
+  }
+
+  100% {
+    rotate: 0deg;
+    background-color: red;
+    color: white;
+  }
+}
+
+@keyframes correct-answer {
+  0% {
+    rotate: -1deg;
+  }
+
+  25% {
+    rotate: 2deg;
+  }
+
+  50% {
+    rotate: -1deg;
+    background-color: rgb(0, 255, 0);
+    color: white;
+  }
+
+  75% {
+    rotate: 1deg;
+  }
+
+  100% {
+    rotate: 0deg;
+    background-color: rgb(0, 255, 0);
+    color: white;
+  }
+}
+
 @keyframes transition {
   0% {
     left: -100%;
@@ -113,14 +175,4 @@ body {
     left: -100%;
     color: var(--primary-color);
   }
-}
-
-.answers-container__answers:hover {
-  background-color: rgba(255, 255, 255, 0.5);
-  cursor: pointer;
-}
-
-.answers-container__answers:active {
-  scale: 0.95;
-  background-color: rgba(255, 255, 255, 0.05);
 }
