@@ -6,7 +6,8 @@ class QuizGame {
   _questionIndicatorElement;
 
   _transitionTime = 5;
-  _transitionAnimation = `${this._transitionTime}s linear 1 transition`;
+  _questionTransitionAnimation = `${this._transitionTime}s linear 1 question-transition`;
+  _errorTransitionAnimation = `${this._transitionTime}s linear 1 error-transition`;
   _transitionElement;
 
   _wrongAnswerAnimation = "0.5s linear 3 forwards wrong-answer";
@@ -56,12 +57,24 @@ class QuizGame {
   }
 
   _showQuestionTransition() {
-    this._playAnimation(this._transitionElement, this._transitionAnimation);
+    this._playAnimation(
+      this._transitionElement,
+      this._questionTransitionAnimation
+    );
     //O '+2' tem a mesma funcao que o '+1' anterior, mas, como a incrementacao
     //do valor so ocorre mais adiante o outro '+1' eh para compensar isso
     this._transitionElement.textContent = `Questao ${
       this._currentQuestion + 2
     } de ${this._questions.length}`;
+  }
+
+  _showErrorTransition() {
+    this._playAnimation(
+      this._transitionElement,
+      this._errorTransitionAnimation
+    );
+
+    this._transitionElement.textContent = `perdeu man hahaha`;
   }
 
   _nextQuestion() {
@@ -94,7 +107,7 @@ class QuizGame {
     const correctAnswer = this._questions[this._currentQuestion].correct_answer;
     if (currentAnswer !== correctAnswer) {
       this._playWrongAnswerAnimation(buttonElement);
-      this._showQuestionTransition();
+      this._showErrorTransition();
       return this._looseGame();
     }
 

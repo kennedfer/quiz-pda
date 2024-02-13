@@ -151,7 +151,7 @@ body {
   }
 }
 
-@keyframes transition {
+@keyframes question-transition {
   0% {
     left: -100%;
     color: var(--primary-color);
@@ -168,6 +168,34 @@ body {
 
   75% {
     left: 0%;
+    color: var(--primary-color);
+  }
+
+  100% {
+    left: -100%;
+    color: var(--primary-color);
+  }
+}
+
+@keyframes error-transition {
+  0% {
+    left: -100%;
+    color: var(--primary-color);
+  }
+
+  25% {
+    left: 0%;
+    color: var(--primary-color);
+    background-color: red;
+  }
+
+  50% {
+    color: white;
+  }
+
+  75% {
+    left: 0%;
+    background-color: red;
     color: var(--primary-color);
   }
 
