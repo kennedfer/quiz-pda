@@ -89,6 +89,7 @@ class QuizGame {
 
   _nextQuestion() {
     this._showQuestionTransition();
+    this._disableTransitionMessageEvents();
 
     /*
     Eu preciso que a questao mude no meio da animacao (para que o texto nao mude 'do nada')
@@ -125,6 +126,21 @@ class QuizGame {
       return this._winGame();
 
     this._nextQuestion();
+  }
+
+  _disableTransitionMessageEvents() {
+    this._transitionMessageElement.style.pointerEvents = "none";
+    setTimeout(() => {
+      this._transitionMessageElement.style.pointerEvents = "auto";
+    }, this._transitionTime * 1000);
+  }
+
+  hideTransition() {
+    const hideTransitionAnimation =
+      this._transitionElement.style.animation.replace("normal", "reverse");
+    this._clearElementAnimations(this._transitionElement);
+    this._playAnimation(this._transitionElement, hideTransitionAnimation);
+    this._disableTransitionMessageEvents();
   }
 
   _winGame() {
@@ -174,6 +190,10 @@ function loadData() {
 function checkAnswer(element) {
   // O html adiciona espacos ao texto,o trim os remove
   quizGame.checkAnswer(element);
+}
+
+function hideTransition() {
+  quizGame.hideTransition();
 }
 
 const quizData = loadData();

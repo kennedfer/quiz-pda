@@ -59,6 +59,10 @@ body {
   gap: var(--gap);
 }
 
+.answers-container__answers {
+  text-transform: capitalize;
+}
+
 .answers-container__answers,
 .question-container {
   background-color: white;
@@ -89,6 +93,10 @@ body {
   color: var(--primary-color);
 }
 
+.question-transition__message {
+  transition: 0.5s ease;
+}
+
 .answers-container__answers:hover {
   background-color: rgba(255, 255, 255, 0.5);
   cursor: pointer;
@@ -101,7 +109,11 @@ body {
 
 .question-transition__message:hover {
   cursor: pointer;
-  scale: 1.1;
+  scale: 1.05;
+}
+
+.question-transition__message:active {
+  scale: 0.95;
 }
 
 @keyframes wrong-answer {
@@ -159,12 +171,12 @@ body {
 @keyframes question-transition {
   0% {
     left: -100%;
-    color: var(--primary-color);
+    color: transparent;
   }
 
   25% {
     left: 0%;
-    color: var(--primary-color);
+    color: white;
   }
 
   50% {
@@ -173,19 +185,19 @@ body {
 
   75% {
     left: 0%;
-    color: var(--primary-color);
+    color: transparent;
   }
 
   100% {
     left: -100%;
-    color: var(--primary-color);
+    color: transparent;
   }
 }
 
 @keyframes error-transition {
   0% {
     left: -100%;
-    color: var(--primary-color);
+    color: transparent;
     background-color: var(--primary-color);
   }
 
