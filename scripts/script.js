@@ -5,13 +5,16 @@ class QuizGame {
   _questionElement;
   _questionIndicatorElement;
 
-  _transitionTime = 5;
-  _questionTransitionAnimation = `${this._transitionTime}s linear 1 question-transition`;
-  _errorTransitionAnimation = `${this._transitionTime}s linear 1 error-transition`;
   _transitionElement;
+  _transitionMessageElement;
 
-  _wrongAnswerAnimation = "0.5s linear 3 forwards wrong-answer";
-  _correctAnswerAnimation = "0.5s linear 3 forwards correct-answer";
+  _transitionTime = 3;
+  _questionTransitionAnimation = `${this._transitionTime}s linear 1 question-transition`;
+  _errorTransitionAnimation = `${this._transitionTime}s linear 1 forwards error-transition`;
+  _winTransitionAnimation = `${this._transitionTime}s linear 1 forwards win-transition`;
+
+  _WRONG_ANSWER_ANIMATION = "0.5s linear 3 forwards wrong-answer";
+  _CORRECT_ANSWER_ANIMATION = "0.5s linear 3 forwards correct-answer";
 
   constructor(questions) {
     this._questions = questions;
@@ -21,6 +24,7 @@ class QuizGame {
       document.getElementById("question-indicator");
 
     this._transitionElement = document.getElementById("question-transition");
+    this._transitionMessageElement = this._transitionElement.children.item(0);
   }
 
   _paintQuestion() {
@@ -63,7 +67,7 @@ class QuizGame {
     );
     //O '+2' tem a mesma funcao que o '+1' anterior, mas, como a incrementacao
     //do valor so ocorre mais adiante o outro '+1' eh para compensar isso
-    this._transitionElement.textContent = `Questao ${
+    this._transitionMessageElement.textContent = `Questao ${
       this._currentQuestion + 2
     } de ${this._questions.length}`;
   }
@@ -74,7 +78,13 @@ class QuizGame {
       this._errorTransitionAnimation
     );
 
-    this._transitionElement.textContent = `perdeu man hahaha`;
+    this._transitionMessageElement.innerHTML = `perdeu man hahah <br> tente novamente`;
+  }
+
+  _showWinTransition() {
+    this._playAnimation(this._transitionElement, this._winTransitionAnimation);
+
+    this._transitionMessageElement.innerHTML = `parabens, voce venceu!<br>jogar novamente`;
   }
 
   _nextQuestion() {
@@ -93,11 +103,11 @@ class QuizGame {
   }
 
   _playWrongAnswerAnimation(button) {
-    this._playAnimation(button, this._wrongAnswerAnimation);
+    this._playAnimation(button, this._WRONG_ANSWER_ANIMATION);
     setTimeout(() => this._clearElementAnimations(button), 2000);
   }
   _playCorrectAnswerAnimation(button) {
-    this._playAnimation(button, this._correctAnswerAnimation);
+    this._playAnimation(button, this._CORRECT_ANSWER_ANIMATION);
     setTimeout(() => this._clearElementAnimations(button), 2000);
   }
 
@@ -106,9 +116,7 @@ class QuizGame {
 
     const correctAnswer = this._questions[this._currentQuestion].correct_answer;
     if (currentAnswer !== correctAnswer) {
-      this._playWrongAnswerAnimation(buttonElement);
-      this._showErrorTransition();
-      return this._looseGame();
+      return this._looseGame(buttonElement);
     }
 
     this._playCorrectAnswerAnimation(buttonElement);
@@ -120,11 +128,13 @@ class QuizGame {
   }
 
   _winGame() {
-    alert("Ganhou");
+    this._showWinTransition();
+    this.startGame();
   }
 
-  _looseGame() {
-    alert("Perdeu");
+  _looseGame(buttonElement) {
+    this._playWrongAnswerAnimation(buttonElement);
+    this._showErrorTransition();
     this.startGame();
   }
 }
