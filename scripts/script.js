@@ -9,9 +9,10 @@ class QuizGame {
   _transitionMessageElement;
 
   _transitionTime = 3;
-  _questionTransitionAnimation = `${this._transitionTime}s linear 1 question-transition`;
-  _errorTransitionAnimation = `${this._transitionTime}s linear 1 forwards error-transition`;
-  _winTransitionAnimation = `${this._transitionTime}s linear 1 forwards win-transition`;
+  _WELCOME_TRANSITION_ANIMATION = `${this._transitionTime}s ease 1 forwards welcome-transition`;
+  _QUESTION_TRANSITION_ANIMATION = `${this._transitionTime}s ease 1 question-transition`;
+  _LOOSE_TRANSITION_ANIMATION = `${this._transitionTime}s ease 1 forwards error-transition`;
+  _WIN_TRANSITION_ANIMATION = `${this._transitionTime}s ease 1 forwards win-transition`;
 
   _WRONG_ANSWER_ANIMATION = "0.5s linear 3 forwards wrong-answer";
   _CORRECT_ANSWER_ANIMATION = "0.5s linear 3 forwards correct-answer";
@@ -47,6 +48,7 @@ class QuizGame {
   }
 
   startGame() {
+    this._showWelcomeTransition();
     this._startInQuestion(0);
   }
 
@@ -60,10 +62,20 @@ class QuizGame {
     element.style.animation = animation;
   }
 
+  _showWelcomeTransition() {
+    this._playAnimation(
+      this._transitionElement,
+      this._WELCOME_TRANSITION_ANIMATION
+    );
+
+    this._transitionMessageElement.innerHTML =
+      "quiz linguagens de programacao - kennedfer<br>vamos comecar?";
+  }
+
   _showQuestionTransition() {
     this._playAnimation(
       this._transitionElement,
-      this._questionTransitionAnimation
+      this._QUESTION_TRANSITION_ANIMATION
     );
     //O '+2' tem a mesma funcao que o '+1' anterior, mas, como a incrementacao
     //do valor so ocorre mais adiante o outro '+1' eh para compensar isso
@@ -75,14 +87,17 @@ class QuizGame {
   _showErrorTransition() {
     this._playAnimation(
       this._transitionElement,
-      this._errorTransitionAnimation
+      this._LOOSE_TRANSITION_ANIMATION
     );
 
     this._transitionMessageElement.innerHTML = `perdeu man hahah <br> tente novamente`;
   }
 
   _showWinTransition() {
-    this._playAnimation(this._transitionElement, this._winTransitionAnimation);
+    this._playAnimation(
+      this._transitionElement,
+      this._WIN_TRANSITION_ANIMATION
+    );
 
     this._transitionMessageElement.innerHTML = `parabens, voce venceu!<br>jogar novamente`;
   }
@@ -145,13 +160,14 @@ class QuizGame {
 
   _winGame() {
     this._showWinTransition();
-    this.startGame();
+    this._startInQuestion(0);
   }
 
   _looseGame(buttonElement) {
     this._playWrongAnswerAnimation(buttonElement);
     this._showErrorTransition();
-    this.startGame();
+
+    this._startInQuestion(0);
   }
 }
 

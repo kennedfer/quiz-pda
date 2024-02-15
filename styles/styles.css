@@ -95,6 +95,7 @@ body {
 
 .question-transition__message {
   transition: 0.5s ease;
+  line-height: 25px;
 }
 
 .answers-container__answers:hover {
@@ -225,7 +226,7 @@ body {
 @keyframes win-transition {
   0% {
     left: -100%;
-    color: var(--primary-color);
+    color: transparent;
     background-color: var(--primary-color);
   }
 
@@ -247,5 +248,32 @@ body {
     left: 0%;
     color: white;
     background-color: #8aef71;
+  }
+}
+@keyframes welcome-transition {
+  0% {
+    left: -100%;
+    color: transparent;
+    background-color: var(--primary-color);
+  }
+
+  25% {
+    left: 0%;
+    color: transparent;
+  }
+
+  50% {
+    background-color: var(--primary-color);
+  }
+
+  75% {
+    color: white;
+    left: 0%;
+  }
+
+  100% {
+    left: 0%;
+    color: white;
+    background-color: var(--primary-color);
   }
 }
